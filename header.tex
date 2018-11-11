@@ -1,0 +1,53 @@
+\documentclass[parskip=half, fontsize=14pt, DIV=calc]{scrartcl}
+
+\usepackage[margin=2cm, includehead, head=1.5cm]{geometry}
+
+\usepackage{fontspec}
+\setsansfont{Fira Sans}
+\renewcommand\familydefault\sfdefault
+
+\usepackage{grffile}
+\usepackage{graphicx}
+
+\usepackage{xfrac}
+
+
+\usepackage{scrlayer-scrpage}
+\ihead[]{%
+  \includegraphics[height=1.5cm]{images/logo_negativ.pdf}%
+}
+\cfoot{}
+\ohead{\huge \thepage}
+
+
+\usepackage{expl3}
+\usepackage{xparse}
+
+\ExplSyntaxOn
+\NewDocumentEnvironment{recipe} {m m m} {
+  \section*{#1}
+  \begin{minipage}[t]{0.5\textwidth}
+    \begin{ingredients}
+      #3
+    \end{ingredients}
+  \end{minipage}
+
+  \begin{minipage}[t]{0.5\textwidth}
+    \vspace{0pt}%fixes alignment to top
+    \includegraphics[width=\textwidth, height=10cm, keepaspectratio]{#2}
+  \end{minipage}
+
+  \subsection*{Zubereitung}
+  \begin{enumerate}
+}{
+  \end{enumerate}
+  \newpage
+}
+
+\NewDocumentEnvironment{ingredients} {} {
+  \subsection*{Zutaten}
+  \begin{description}
+}{
+  \end{description}
+}
+\ExplSyntaxOff
